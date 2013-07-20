@@ -27,8 +27,8 @@ int random_range(int min, int max)
     const int limit = buckets * range;
 
     /* Create equal size buckets all in a row, then fire randomly towards
-    *      * the buckets until you land in one of them. All buckets are equally
-    *           * likely. If you land off the end of the line of buckets, try again. */
+     * the buckets until you land in one of them. All buckets are equally
+     * likely. If you land off the end of the line of buckets, try again. */
     do
     {
         r = rand();
@@ -53,6 +53,9 @@ void shuffle_deck(Deck *deck, int inclusive_start, int inclusive_end)
 
 Card *take_top_card(Deck *deck)
 {
+    int top = deck->top_of_deck;
+    deck->top_of_deck --;
+    return deck->cards[top];
 }
 
 Deck *create_deck()
@@ -74,15 +77,6 @@ Deck *create_deck()
 void main()
 {
     srand(time(NULL));
-    for (int i = 0; i < 100; i++)
-    {
-        printf("%d,",random_range(0,3));
-    }
-    printf("\n");
     Deck *deck = create_deck();
-    for (int i = 0; i < 10; i++)
-    {
-        shuffle_deck(deck,0,39);
-        display_deck(deck);
-    }
+    shuffle_deck(deck,0,39);
 }
