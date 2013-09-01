@@ -3,6 +3,11 @@
 #include<stdio.h>
 #include<time.h>
 
+char SUIT[4] = {'H','C','S','D'};
+char VALUE[10] = {'2','4','5','6','7','J','Q','K','3','A'};
+int POINTS[10] = {0,0,0,0,0,2,3,4,10,11};
+
+
 void display_card(Card *card)
 {
     printf("%c%c",VALUE[card->value],SUIT[card->suit]);
@@ -74,9 +79,3 @@ Deck *create_deck()
     return deck;
 }
 
-void main()
-{
-    srand(time(NULL));
-    Deck *deck = create_deck();
-    shuffle_deck(deck,0,39);
-}
