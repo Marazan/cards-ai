@@ -17,6 +17,10 @@ struct Deck
 typedef struct Deck Deck; 
 typedef struct Card Card;
 
+extern char SUIT[];
+extern char VALUE[];
+extern int POINTS[];
+
 void display_card(Card *card);
 void display_deck(Deck *deck);
 void shuffle_deck(Deck *deck, int inclusive_start, int inclusive_end);

@@ -10,11 +10,24 @@ int POINTS[10] = {0,0,0,0,0,2,3,4,10,11};
 
 void display_card(Card *card)
 {
-    printf("%c%c",VALUE[card->value],SUIT[card->suit]);
+    if (card != NULL)
+    {
+        printf("%c%c",VALUE[card->value],SUIT[card->suit]);
+    }
+    else
+    {
+        printf("NULL");
+    }
 }
 
 void display_deck(Deck *deck)
 {
+
+    for (int i = 0; i < 40; i++)
+    {
+        printf("%02d ",i);
+    }
+    printf("\n");
     for (int i = 0; i < 40; i++)
     {
         display_card(deck->cards[i]);
