@@ -166,7 +166,7 @@ int iterate_turn(GameState *state)
     {
         return 1;
     }
-    else if (state->players[1]->score == 60 && state->players[1]->score == 60 )
+    else if (state->players[0]->score == 60 && state->players[1]->score == 60 )
     {
         return -3;
     }
