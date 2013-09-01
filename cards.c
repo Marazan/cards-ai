@@ -66,6 +66,7 @@ Card *take_top_card(Deck *deck)
 Deck *create_deck()
 {
     Deck *deck = (Deck *)(malloc(sizeof(Deck)));
+    deck->top_of_deck = 39;
     for (int suit = 0; suit < 4; suit ++)
     {
         for (int value = 0; value < 10; value ++)
