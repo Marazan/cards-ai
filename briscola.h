@@ -47,5 +47,6 @@ Player *create_player();
 void score_card(Card *lead, Card *follow, int follower, GameState *state);
 int iterate_turn(GameState *state);
 void print_game_state(GameState *state);
+void reset_game(GameState *state);
 
 #endif

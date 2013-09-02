@@ -40,6 +40,17 @@ void restore_game_state(struct FrozenGameState *fromState, GameState *toState)
 {
 }
 
+void deal_cards_to_players(GameState *state)
+{
+    for (int p = 0; p < 2; p++)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            state->players[p]->cards[i] = take_top_card(state->deck);
+        }
+    }
+}
+
 GameState *create_game(Player *player1, Player *player2)
 {
     GameState *state = (GameState *)malloc(sizeof(GameState));
@@ -48,14 +59,8 @@ GameState *create_game(Player *player1, Player *player2)
     state->deck = create_deck();
     shuffle_deck(state->deck,0,39);
     state->player_to_play = 0;
-    for (int p = 0; p < 2; p++)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            state->players[p]->cards[i] = take_top_card(state->deck);
-        }
-    }
     state->briscola = state->deck->cards[0];
+    deal_cards_to_players(state);
     return state;
 }
 
@@ -137,6 +142,17 @@ void refresh_players_cards(GameState *state)
         state->players[player_to_take]->cards[state->players[player_to_take]->empty_position] = take_top_card(state->deck);
     }
 }
+
+void reset_game(GameState *state)
+{
+    shuffle_deck(state->deck,0,39);
+    state->deck->top_of_deck = 39;
+    state->player_to_play = 0;
+    deal_cards_to_players(state);
+    state->players[0]->score = 0;
+    state->players[1]->score = 0;
+}
+
 int iterate_turn(GameState *state)
 {
     Card *card_played = state->
