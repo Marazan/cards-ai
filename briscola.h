@@ -7,6 +7,7 @@
 struct GameState;
 typedef struct GameState GameState;
 
+struct Player;
 typedef struct Player Player;
 
 struct Player
@@ -16,6 +17,7 @@ struct Player
     int score;
     Card *(*take_turn)(GameState *state, Player *player);
     Card *cards[3];
+    int card_positions[3];
 };
 
 struct GameState 
@@ -36,6 +38,7 @@ struct FrozenGameState
     int p1cards[3];
     int p2cards[3];
     int scores[2];
+    Card *deck[40];
 };
 
 Card *first_card(GameState *state, Player *player);

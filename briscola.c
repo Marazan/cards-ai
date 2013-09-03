@@ -23,6 +23,11 @@ Card *first_card(GameState *state, Player *player)
     return card_to_play;
 }
 
+Card* card(Deck *deck, int index)
+{
+    return deck->cards[index];
+}
+
 void freeze_game_state(GameState *fromState, struct FrozenGameState *toState)
 {
     int int_in_bytes = sizeof(int);
@@ -46,6 +51,7 @@ void deal_cards_to_players(GameState *state)
     {
         for (int i = 0; i < 3; i++)
         {
+            state->players[p]->card_positions[i] = state->deck->top_of_deck;
             state->players[p]->cards[i] = take_top_card(state->deck);
         }
     }

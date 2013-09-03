@@ -28,7 +28,7 @@ void main()
                 i += 1;
             }
 
-            //print_game_state(state);
+            print_game_state(state);
             //printf("Victory for player %d\n\n",status);
             reset_game(state);
         }
