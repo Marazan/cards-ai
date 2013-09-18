@@ -31,7 +31,9 @@ Card* card(Deck *deck, int index)
 void freeze_game_state(GameState *fromState, struct FrozenGameState *toState)
 {
     int int_in_bytes = sizeof(int);
+    int card_in_bytes= sizeof(Card *);
     toState->deck_index = fromState->deck->top_of_deck;
+    memcpy(toState->deck,fromState->deck->cards,40*card_in_bytes);
     memcpy(toState->p1cards,fromState->players[0]->cards,3*int_in_bytes);
     toState->p1empty = fromState->players[0]->empty_position;
     memcpy(toState->p2cards,fromState->players[1]->cards,3*int_in_bytes);
@@ -43,6 +45,18 @@ void freeze_game_state(GameState *fromState, struct FrozenGameState *toState)
 
 void restore_game_state(struct FrozenGameState *fromState, GameState *toState)
 {
+    int int_in_bytes = sizeof(int);
+    int card_in_bytes= sizeof(Card *);
+    toState->deck->top_of_deck = fromState->deck_index;
+    memcpy(toState->deck->cards,fromState->deck,40*card_in_bytes);
+    memcpy(toState->players[0]->cards,fromState->p1cards,3*int_in_bytes);
+    toState->players[0]->empty_position=fromState->p1empty; 
+    memcpy(toState->players[1]->cards,fromState->p2cards,3*int_in_bytes);
+    toState->players[1]->empty_position = fromState->p2empty;
+    toState->players[0]->score = fromState->scores[0];
+    toState->players[1]->score = fromState->scores[1];
+    toState->played_card = fromState->played_card;
+
 }
 
 void deal_cards_to_players(GameState *state)

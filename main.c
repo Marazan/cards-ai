@@ -12,25 +12,27 @@ void main()
         Player *p2 = create_player();
         p2->take_turn = &first_card;
         GameState *state = create_game(p1,p2);
+        struct FrozenGameState *fgs = malloc(sizeof(struct FrozenGameState));
+        freeze_game_state(state,fgs);
         printf("\n");
-        for (int gn = 0;gn < 20000; gn++)
+        for (int gn = 0;gn < 200000; gn++)
         {
             //print_game_state(state);
             int status = -1;
             int i = 0;
-            while (status == -1)
+            while (status == -1 || status == -2)
             {
                 //printf("Turn %d\n",i);
-                iterate_turn(state);
                 status = iterate_turn(state);
                 //print_game_state(state);
                 //printf("\n");
                 i += 1;
             }
 
-            print_game_state(state);
+            //print_game_state(state);
             //printf("Victory for player %d\n\n",status);
-            reset_game(state);
+            restore_game_state(fgs,state);
+            //reset_game(state);
         }
 }
 
