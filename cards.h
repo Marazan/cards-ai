@@ -21,6 +21,8 @@ extern char SUIT[];
 extern char VALUE[];
 extern int POINTS[];
 
+
+int random_range(int min, int max);
 void display_card(Card *card);
 void display_deck(Deck *deck);
 void shuffle_deck(Deck *deck, int inclusive_start, int inclusive_end);

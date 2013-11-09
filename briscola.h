@@ -15,10 +15,12 @@ struct Player
     int total_cards_in_hand;
     int empty_position;
     int score;
+    void * data;
+    int mctp;
     Card *(*take_turn)(GameState *state, Player *player);
     Card *cards[3];
-    int card_positions[3];
 };
+
 
 struct GameState 
 {
@@ -35,19 +37,22 @@ struct FrozenGameState
     int p2empty;
     int p1empty;
     Card *played_card;
-    int p1cards[3];
-    int p2cards[3];
+    int player_to_play;
+    Card *p1cards[3];
+    Card *p2cards[3];
     int scores[2];
     Card *deck[40];
 };
 
 Card *first_card(GameState *state, Player *player);
-Card *random_play(GameState *state);
+Card *monte_carlo(GameState *state, Player *player);
+Card *random_play(GameState *state, Player *player);
 void freeze_game_state(GameState *fromState, struct FrozenGameState *toState);
 void restore_game_state(struct FrozenGameState *fromState, GameState *toState);
 GameState *create_game(Player *player1, Player *player2);
 Player *create_player();
 void score_card(Card *lead, Card *follow, int follower, GameState *state);
+int compact_game(GameState *state);
 int iterate_turn(GameState *state);
 void print_game_state(GameState *state);
 void reset_game(GameState *state);
